@@ -244,8 +244,17 @@
 
 <script>
 
+
   var content = document.getElementById("content");
   var sidebar = document.getElementById("sidebar");
+
+  function addEvent(obj, event, fn) {
+    if(obj.addEventListener){
+        obj.addEventListener(event, fn, false);
+    }else if(obj.attachEvent){
+        obj.attachEvent('on'+event, fn);
+    }
+  }
 
   function getPoint(obj) {
     var l = obj.offsetLeft;
@@ -255,7 +264,8 @@
     return l;
   }
 
-  function check(){
+  var check = addEvent(window, 'resize', function(){
+
     if(getPoint(content) < 164){
       content.className = "col-md-10";
       sidebar.className = "col-md-2";
@@ -264,9 +274,8 @@
       content.className += " col-md-offset-2";
       sidebar.className += " fixed";
     }
-  }
+  });
 
-  setInterval("check()", 50);
 
 </script>
 
